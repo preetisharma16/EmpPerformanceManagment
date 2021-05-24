@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Manager View</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="managerHome.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+  <style>
+    .disabled a {
+      pointer-events:none; 
+      opacity:0.6;
+   }
+  </style>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Performance Review</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li id="manView" class ="active"><a  href="javascript:doSomething()">Manager View</a></li>
+      <li class="active"><a href="#">Employee View</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="javascript:logOut()" id="logOutGlobal" ><span class="glyphicon glyphicon-log-in"></span> LogOut</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="container">
+	<table class="table table-hover" id ="empData">
+    <tbody class = "tbody">
+        <tr>
+            <td><div style="width:800px; margin:0 auto;" id="piechart"></div></td>
+            <td>
+                <label for="vol">Punctuality And Discipline:</label>
+                <input type="range" id="pad" name="vol" min="0" max="10" value="0">
+                <br>
+                <label for="vol">Execution Of Duties:</label>
+                <input type="range" id="eod" name="vol" min="0" max="10" value="5">
+                <br>
+                <label for="vol">Learning And Development:</label>
+                <input type="range" id="lad" name="vol" min="0" max="10" value="5">
+                <br>
+                <label for="vol">Team Cooperation:</label>
+                <input type="range" id="tc" name="vol" min="0" max="10" value="8">
+                <br>
+                <label for="vol">Responsibility Taken:</label>
+                <input type="range" id="rt" name="vol" min="0" max="10" value="2">
+                <br>
+
+                <input type="button" value = "Update Rating" onclick="updateRating()">
+            </td>
+            
+        </tr>
+    </tbody>
+</table>
+
+
+
+
+
+  
+</div>
+	<script>
+    function doSomething() {
+      var url = document.location.href,
+      params = url.split('?')[1].split('&'),
+      data = {}, tmp;
+      for (var i = 0, l = params.length; i < l; i++) {
+        tmp = params[i].split('=');
+        data[tmp[0]] = tmp[1];
+      }
+      if (data.isMgr == 'yes') {
+        url = './managerHome.html?deptID=' + data.deptID + '&empID=' + data.empID;
+        document.location.href = url;
+       } else {
+         url = './employeeHome.html?empID=' + data.empID +'&isMgr=no';
+         //url = 'http\://localhost:3000/managerHome.html?deptID=' + result.dept_no + '&empID=' + result.id;
+         document.location.href = url;
+       }
+
+    }
+    window.onload = function () {
+      var url = document.location.href,
+      params = url.split('?')[1].split('&'),
+      data = {}, tmp;
+      for (var i = 0, l = params.length; i < l; i++) {
+        tmp = params[i].split('=');
+        data[tmp[0]] = tmp[1];
+      }
+    const fetchURL = 'https://j52bp60fkg.execute-api.us-west-2.amazonaws.com/v2/emp-rating';
+    const emp_id = {
+      emp_id: data.empID,
+    };
+    
+fetch(fetchURL, {
+  method: 'POST',
+  mode: 'cors', // no-cors, *cors, same-origin
+  cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+  credentials: 'same-origin', // include, *same-origin, omit
+  body: JSON.stringify(emp_id),
+  headers: {
+    'content-type': 'application/json',
+  },
+}).then(response => response.json())
+.then(result => {
+  console.log(result.id);
+  console.log(result);
+  console.log(result.isMgr);
+  //url = 'http\://localhost:3000/managerHome.html?deptID=' + result.dept_no + '&empID=' + result.id;
+  //document.location.href = url;
+
+// Load google charts
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+// Draw the chart and set the chart values
+function drawChart() {
+
+  var data = new google.visualization.DataTable();
+data.addColumn('string', 'Rating');
+data.addColumn('number', 'Performace');
+data.addRows([
+  ['Punctuality And Discipline', Number(result.punct)],
+  ['Execution Of Duties', Number(result.execuDet)],
+  ['Learning And Development', Number(result.lrnDev)],
+  ['Team Cooperation', Number(result.teamCoorp)],
+  ['Responsibility Taken', Number(result.resTak)]
+]);
+
+document.getElementById("pad").value = result.punct;
+document.getElementById("eod").value = result.execuDet;
+document.getElementById("lad").value = result.lrnDev;
+document.getElementById("tc").value = result.teamCoorp;
+document.getElementById("rt").value = result.resTak;
+
+  // Optional; add a title and set the width and height of the chart
+  var options = {'title':'Employee Perfrormance Bar Chart', 'width':800, 'height':800};
+
+  // Display the chart inside the <div> element with id="piechart"
+  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+  chart.draw(data, options);
+}
+
+});
+
+
+
+
+
+
+   /// url = 'http\://localhost:3000/getEmpChart/'+ data.empID;
+    //url = 'http\://localhost:3000/employeeHome.html?empID=' + empID;
+    ////document.location.href = url;
+    }
+
+    function updateRating() {
+      //alert("here");
+      var url = document.location.href,
+      params = url.split('?')[1].split('&'),
+      data = {}, tmp;
+      for (var i = 0, l = params.length; i < l; i++) {
+        tmp = params[i].split('=');
+        data[tmp[0]] = tmp[1];
+      }
+      console.log(data.empID);
+
+      const fetchURL = 'https://j52bp60fkg.execute-api.us-west-2.amazonaws.com/v2/emp-rating/update';
+      console.log( "emp_id" + data.empID +
+      "teamCoorp" +  document.getElementById("tc").value + 
+      "execuDet" + document.getElementById("eod").value +
+      "punct" + document.getElementById("pad").value + 
+      "resTak" + document.getElementById("rt").value + 
+      "lrnDev" + document.getElementById("lad").value);
+    const updateData = {
+      "emp_id": data.empID,
+      "teamCoorp" : document.getElementById("tc").value, 
+      "execuDet": document.getElementById("eod").value,
+      "punct" : document.getElementById("pad").value, 
+      "resTak" : document.getElementById("rt").value,
+      "lrnDev" : document.getElementById("lad").value
+    }
+      fetch(fetchURL, {
+        method: 'POST',
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        body: JSON.stringify(updateData),
+        headers: {
+          'content-type': 'application/json',
+        },
+      }).then(response => response.json())
+      .then(result => {
+        //console.log(result.id);
+        //console.log(result);
+        console.log("update done");
+        //url = 'http\://localhost:3000/managerHome.html?deptID=' + result.dept_no + '&empID=' + result.id;
+        //document.location.href = url;
+        location.reload();
+      });
+      
+      //alert("gotcha");
+    }
+  </script>
+</div>
+
+<script src="./script/jquery.min.js"></script>	
+    <script src="./script/aws-sdk-2.487.0.min.js"></script>
+    <script src="./script/aws-cognito-sdk.min.js"></script>
+    <script src="./script/amazon-cognito-identity.min.js"></script>
+    <script>
+    //=============== AWS IDs ===============
+    var userPoolId = 'us-east-1_eQRJ21hXq';
+    var clientId = '6ir9bmjr770030sajnece2bste';
+    var region = 'us-east-1';
+    var identityPoolId = 'us-east-1:f97072ec-26c5-4a33-847f-2a371eecf54a';
+    //=============== AWS IDs ===============
+    
+    var cognitoUser;
+    var idToken;
+    var userPool;
+    
+    var poolData = { 
+        UserPoolId : userPoolId,
+        ClientId : clientId
+    };
+
+     /*
+        Starting point for user logout flow
+        */
+        function logOut(){
+          userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+          cognitoUser = userPool.getCurrentUser();
+          if (cognitoUser != null) {
+
+              //$("#loader").show();
+              cognitoUser.signOut();
+              url = './index.html';
+	            document.location.href = url;
+              //switchToLogInView();
+              //logMessage('Logged out!');
+              //$("#loader").hide();
+          }
+      }
+      function stayPut(){
+        location.reload();
+      }
+
+
+  </script>
+
+
+
+
+
+</body>
+
+</html>
