@@ -33,8 +33,12 @@
 
 ### Application Link: 
 * https://www.empperformance.store
-* 
+  
+  Use following Account Credentials for testing:
+  1. Manager: priti.sharma@sjsu.edu / 123456
+  2. Employee:  preetisharma16@icloud.com / apple123
 
 ## Architecture Diagram
+<img src="">
 
 
