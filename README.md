@@ -39,6 +39,6 @@
   2. Employee:  preetisharma16@icloud.com / apple123
 
 ## Architecture Diagram
-<img src="">
+<img src="https://github.com/preetisharma16/EmpPerformanceManagment/blob/main/images/archDiagm.png" width="500">
 
 
