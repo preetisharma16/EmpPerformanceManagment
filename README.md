@@ -45,10 +45,21 @@
    Manager login with Cognito authentication:
    
    <img src="https://github.com/preetisharma16/EmpPerformanceManagment/blob/main/images/managerlogin.png" width="500" >
-   
+   <br />
    
    Manager view with all the employee for his department are shown
    <img src="https://github.com/preetisharma16/EmpPerformanceManagment/blob/main/images/managerView.png" width="500" >
+   <br />
+   
+   Rating for Employee
+   <img src="https://github.com/preetisharma16/EmpPerformanceManagment/blob/main/images/showRating.png" width="500" >
+   <br />
+   
+   Update rating for Employee
+   <img src="https://github.com/preetisharma16/EmpPerformanceManagment/blob/main/images/updaterating.png" width="500" >
+   <br />
+   
+   
    
 
 
