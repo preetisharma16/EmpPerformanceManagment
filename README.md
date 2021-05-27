@@ -41,4 +41,14 @@
 ## Architecture Diagram
 <img src="https://github.com/preetisharma16/EmpPerformanceManagment/blob/main/images/archDiagm.png" width="500">
 
+## Application Screenshots:
+   Manager login with Cognito authentication:
+   
+   <img src="https://github.com/preetisharma16/EmpPerformanceManagment/blob/main/images/managerlogin.png" width="500" >
+   
+   
+   Manager view with all the employee for his department are shown
+   <img src="https://github.com/preetisharma16/EmpPerformanceManagment/blob/main/images/managerView.png" width="500" >
+   
+
 
