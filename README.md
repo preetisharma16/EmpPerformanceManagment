@@ -1,12 +1,12 @@
 # Performance Managment
 
- San Jose State University
+  San Jose State University
  
- CMPE-282 Cloud Services
+  CMPE-282 Cloud Services
  
- Professor: Andrew Bond
+  Professor: Andrew Bond
  
- ISA: Akanksha Jaiswal
+  ISA: Akanksha Jaiswal
  
 # CMPE 282 Term Project Introduction:
 
@@ -51,13 +51,30 @@
    <img src="https://github.com/preetisharma16/EmpPerformanceManagment/blob/main/images/managerView.png" width="500" >
    <br />
    
+   
    Rating for Employee
+   
    <img src="https://github.com/preetisharma16/EmpPerformanceManagment/blob/main/images/showRating.png" width="500" >
    <br />
    
+   
    Update rating for Employee
+   
    <img src="https://github.com/preetisharma16/EmpPerformanceManagment/blob/main/images/updaterating.png" width="500" >
    <br />
+   
+   Employee Login
+   
+   <img src="https://github.com/preetisharma16/EmpPerformanceManagment/blob/main/images/employeelogin.png" width="500" >
+   <br />
+   
+   Employee View
+   
+   <img src="https://github.com/preetisharma16/EmpPerformanceManagment/blob/main/images/employeeview.png" width="500" >
+   <br />
+   
+   
+   
    
    
    
