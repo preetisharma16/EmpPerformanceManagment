@@ -26,10 +26,11 @@
 *	 Node.js
 *  Express 
 *  HTML, JavaScript, Bootstrap, google chart APIs
-* 	DynamoDB
-* 	AWS Cognito 
-* 	AWS Lambda API 
+*  DynamoDB
+*  AWS Cognito 
+*  AWS Lambda API 
 *  AWS amplify 
+*  S3 buckets to hold all the source files for the application
 
 ### Application Link: 
 * https://www.empperformance.store
